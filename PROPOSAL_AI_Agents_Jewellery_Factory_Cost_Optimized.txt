@@ -1,0 +1,1071 @@
+# AI Automation & Agent Proposal — Cost-Optimized Version
+# Jewellery Factory — Digital Transformation Initiative
+# Prepared: May 2026
+# ─────────────────────────────────────────────────────────────────────────────
+
+EXECUTIVE SUMMARY
+═════════════════
+This proposal outlines the deployment of AI Agents across 5 core departments of
+the jewellery factory to automate repetitive workflows, reduce errors, cut costs,
+and accelerate decision-making. The system is built on a CrewAI + FastAPI +
+PostgreSQL stack and integrates with existing ERP, design tools, and HR systems.
+
+Estimated Total Investment  : ₹ 29,00,000 – ₹ 47,00,000 (Year 1)
+Projected Annual Savings    : ₹ 34,00,000 – ₹ 56,50,000
+Expected ROI (Year 2+)      : 140% – 220%
+Payback Period              : 8 – 14 months
+Cost-Optimized Pilot Option : ₹ 3,50,000 – ₹ 7,00,000 for NPD-first rollout
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DEPARTMENT 1 — NEW PRODUCT DEVELOPMENT (NPD)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CURRENT PAIN POINTS
+───────────────────
+• Trend research is done manually (browsing Pinterest, trade magazines, competitor sites)
+• New product briefs take 3–5 days to prepare
+• BOM (Bill of Materials) is created manually in Excel — prone to errors
+• No structured way to track which designs sold well vs. which failed
+• Competitive benchmarking is ad hoc
+
+AI AGENTS PROPOSED
+──────────────────
+
+Agent 1.1 — Trend Research Agent
+  What it does:
+  • Monitors fashion trend feeds, social media, Google Trends, trade portals
+  • Summarizes top trending jewellery styles, colors, stones every week
+  • Tags trends by occasion (bridal, daily wear, festive) and customer segment
+  • Generates a weekly trend report PDF automatically
+
+  Tools Used:
+  • Web scraping + Tavily Search API
+  • GPT-4o for summarization
+  • Scheduled cron trigger (every Monday 8AM)
+
+  Inputs  : Trend sources list, target segments, competitor URLs
+  Outputs : Weekly trend brief, design inspiration keywords, top 10 trending SKUs
+
+Agent 1.2 — Product Brief Generator Agent
+  What it does:
+  • Takes a simple design idea (voice note / text) and generates a full product brief
+  • Auto-fills: product name, category, target customer, metal spec, stone suggestion,
+    occasion fit, estimated price range, production complexity rating
+  • Stores brief in the product database for designer review
+
+  Tools Used:
+  • GPT-4o (LLM reasoning)
+  • Product database (PostgreSQL)
+  • Metal rate API (for price estimate)
+
+  Inputs  : Designer's rough idea (text/voice)
+  Outputs : Structured product brief with specs, pricing estimate, priority score
+
+Agent 1.3 — BOM (Bill of Materials) Automation Agent
+  What it does:
+  • Auto-generates BOM from approved product spec
+  • Lists: metal type, purity, weight, stones (type/size/quantity), findings, packaging
+  • Validates against inventory — flags missing materials before production starts
+  • Calculates material cost, making cost, and margin estimate
+
+  Tools Used:
+  • PostgreSQL (product + inventory tables)
+  • Pricing calculator tool
+  • Inventory check tool
+
+  Inputs  : Approved product spec sheet
+  Outputs : Complete BOM with cost breakdown, inventory gap report
+
+Agent 1.4 — Post-Launch Performance Agent
+  What it does:
+  • Tracks sales velocity of new products for 90 days post-launch
+  • Identifies slow-moving designs and recommends: discount / discontinue / redesign
+  • Flags best-sellers for capacity increase recommendation
+
+  Tools Used:
+  • Sales database queries
+  • GPT-4o analysis
+
+  Inputs  : Product sales data (daily)
+  Outputs : 90-day performance report, action recommendations
+
+Agent 1.5 — Sample Development Workflow Agent
+  What it does:
+  • Digitizes the full sample development SOP from design approval to final QC
+  • Handles both customer-owned designs and in-house designs separately
+  • Tracks sample ownership rules so customer-owned designs are not reused without approval
+  • Creates sample IDs and monitors stage-wise progress:
+    Design → Master Casting → Master Creation → Polishing → Stone Setting → Final QC
+  • Captures responsibility, start date, expected completion, current stage, and status
+  • Raises alerts for delayed samples, blocked stages, labour shortages, and material shortages
+
+  Tools Used:
+  • PostgreSQL sample tracking tables
+  • Workflow engine / stage transition rules
+  • Notification tool for Design, Production, Procurement, and QC teams
+
+  Inputs  : Approved design, sample type, required material, required stones, target date
+  Outputs : Sample tracking record, stage status, delay alerts, approval/rejection history
+
+Agent 1.6 — NPD Resource & KPI Dashboard Agent
+  What it does:
+  • Builds real-time visibility across the NPD sample pipeline
+  • Tracks sample pipeline by customer-specific vs. in-house designs
+  • Monitors labour availability for master creation, polishing, stone setting, and QC
+  • Tracks raw material stock: opening stock, used quantity, balance, reorder level
+  • Tracks stone inventory: type, size, quality, available quantity, required quantity, order status
+  • Calculates KPIs automatically: cycle time, rejection rate, rework %, stage-wise delay,
+    worker productivity, labour utilization, idle time, and supplier fulfillment rate
+  • Generates management dashboard summary every day
+
+  Tools Used:
+  • PostgreSQL analytics views
+  • FastAPI dashboard endpoints
+  • Excel/PDF report generator
+  • Optional React/Streamlit dashboard
+
+  Inputs  : Sample tracking data, inventory data, labour data, QC results, procurement status
+  Outputs : NPD dashboard, KPI reports, exception alerts, productivity summary
+
+SOP AUTOMATION COVERAGE — SAMPLE DEVELOPMENT
+────────────────────────────────────────────
+  Objective:
+  • Establish a standardized digital process for new jewellery sample development
+  • Improve quality, cycle time, resource utilization, and management visibility
+
+  Scope:
+  • Customer-specific jewellery designs
+  • In-house developed jewellery designs
+  • Departments involved: Design, Production, Procurement, QC, Management
+
+  Sample Types:
+  • Customer-Owned Design: ownership remains with customer and reuse requires permission
+  • In-House Design: developed internally and reusable across customers/collections
+
+  Digital Process Flow:
+  • Design Approval
+  • Master Casting
+  • Master Creation / Hand Finishing
+  • Polishing
+  • Stone Setting, if required
+  • Final Quality Check
+
+  Stage-Level Automation:
+  • Design Stage: capture design source, feasibility check, approval status
+  • Master Casting: assign casting team, record mould/casting status, output rough master
+  • Master Creation: assign skilled artisan, track detailing accuracy and completion
+  • Polishing: assign polisher, capture finish quality and completion time
+  • Stone Setting: validate stone availability, assign stone setter, record setting completion
+  • Final QC: inspect design accuracy, finish, stone alignment, and structural quality
+
+  Digital Templates to be Automated:
+  • Sample Tracking Sheet: Sample ID, type, design name, stage, start date, expected completion, status
+  • Stage Monitoring Template: stage-wise pending, in-progress, and completed samples
+  • Stone Inventory Template: stone type, size, quality, available quantity, required quantity, order status
+  • Raw Material Tracking Template: opening stock, used, balance, reorder level, status
+  • Labour Availability Sheet: required labour, available labour, shortage, remarks
+  • Productivity Tracking Sheet: employee, stage, units completed, time taken, productivity rate
+
+  Dashboard Requirements:
+  • Sample pipeline: customer-owned vs. in-house
+  • Stage-wise sample progress
+  • Stone inventory and procurement status
+  • Raw material stock and consumption
+  • Labour availability and allocation
+  • Productivity metrics and bottleneck alerts
+
+  KPIs to be Tracked:
+  • Production: total samples in pipeline, cycle time, stage-wise delay %, on-time delivery rate
+  • Quality: rejection rate %, rework %, QC pass rate
+  • Inventory: raw material availability %, stock turnover, stock-out frequency, stone availability vs. requirement
+  • Labour: productivity per worker, labour utilization %, idle time %, stage efficiency
+  • Procurement: stone procurement lead time, supplier fulfillment rate %, cost variance
+
+  Responsibility Matrix:
+  • Design Team: design creation, feasibility validation, approval
+  • Production Team: sample development through casting, master creation, polishing, and setting
+  • Procurement Team: raw material and stone availability
+  • QC Team: sample inspection and approval/rejection
+  • Management: monitoring, exception handling, and decision-making
+
+REQUIREMENTS — NPD DEPARTMENT
+──────────────────────────────
+  Technical:
+  • Python 3.10+, CrewAI, FastAPI
+  • PostgreSQL for product master data
+  • Tavily API (web search) or Serper API
+  • OpenAI GPT-4o API key
+  • Scheduler: APScheduler or Celery Beat
+
+  Data:
+  • Product catalogue (existing SKUs, past designs)
+  • Sales history (at least 12 months)
+  • Supplier/material catalogue
+  • Target customer segments defined
+  • Sample master data: sample ID, type, ownership, design name, current stage, status
+  • Stage-wise time standards for design, casting, master creation, polishing, stone setting, and QC
+  • Labour skill mapping for artisans, polishers, stone setters, and QC personnel
+  • Raw material and stone inventory data with reorder levels
+  • QC rejection and rework history
+
+  Integration:
+  • Existing ERP/product database (or standalone PostgreSQL)
+  • Optional: WhatsApp/Email for trend reports delivery
+  • Optional: barcode/QR scan at each sample development stage
+  • Optional: dashboard display for management and department heads
+
+COST — NPD DEPARTMENT
+──────────────────────
+  Development & Setup    : ₹ 4,75,000 – ₹ 7,25,000
+  OpenAI API (monthly)   : ₹ 10,000 – ₹ 19,000/month (~650K tokens/month)
+  Tavily/Serper API      : ₹ 2,000 – ₹ 4,000/month
+  Server/Cloud hosting   : ₹ 3,000 – ₹ 5,000/month
+  ─────────────────────────────────────
+  YEAR 1 TOTAL           : ₹ 6,55,000 – ₹ 10,61,000
+
+  Savings:
+  • Eliminates 1 full-time market researcher role: ₹ 4,80,000/year
+  • Reduces NPD cycle from 5 days to 1 day: 80% time savings
+  • BOM errors eliminated: estimated ₹ 2,00,000/year in material waste
+  • Sample delay and rework reduction: estimated ₹ 1,50,000 – ₹ 3,00,000/year
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NPD COST-OPTIMIZED AI IMPLEMENTATION APPROACH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OBJECTIVE
+─────────
+This section defines a practical, low-cost AI rollout for the jewellery New
+Product Development process. The aim is to start with free/open-source AI tools,
+avoid heavy recurring API costs, and deploy advanced automation only after value
+is proven.
+
+1. DESIGN STAGE — HIGHEST IMPACT AREA
+──────────────────────────────────────
+  Where AI Helps:
+  • Generate new jewellery design concepts
+  • Convert sketches into 3D design ideas
+  • Create quick customer design variations for proposal approval
+
+  AI Use Cases:
+  • Design suggestion based on trending styles and pattern variations
+  • Auto CAD concept generation for early-stage visualization
+  • Image-to-design conversion from rough sketch or reference image
+
+  Low-Cost AI Models / Tools:
+  • Stable Diffusion: open-source jewellery image generation, free if local
+  • DALL-E API: pay-per-use option for selected premium sample concepts
+  • Blender + AI plugins: free 3D modelling support
+  • Runway ML: affordable visual AI tools for concept exploration
+
+  Recommendation:
+  • Use Stable Diffusion locally for most design concepts to reduce recurring cost
+  • Use DALL-E only for high-priority customer presentations or premium concepts
+
+2. MASTER CREATION / CASTING STAGE
+───────────────────────────────────
+  Where AI Helps:
+  • Predict casting defects
+  • Suggest ideal material mix using past production data
+  • Reduce rework and rejected master samples
+
+  AI Use Cases:
+  • Defect detection using image analysis
+  • Pattern recognition from historical defect images
+  • Casting condition recommendations based on previous successful batches
+
+  Low-Cost AI Models / Tools:
+  • OpenCV: free image processing
+  • TensorFlow Lite / PyTorch Mobile: lightweight local ML models
+  • Open-source anomaly detection models
+
+  Recommendation:
+  • Start with OpenCV + a basic ML model running on a local PC
+  • Train models gradually using factory defect images
+
+3. POLISHING STAGE
+──────────────────
+  Where AI Helps:
+  • Check surface finishing quality
+  • Detect scratches, uneven polish, dull patches, and visible marks
+
+  AI Use Cases:
+  • Computer vision inspection system for polishing quality
+  • Pass/fail support for operator and QC team
+
+  Low-Cost AI Models / Tools:
+  • OpenCV + camera setup
+  • YOLOv5 / YOLOv8 for real-time defect detection
+
+  Recommendation:
+  • Deploy a small AI model with a fixed camera station
+  • Keep it as an assistant to the polisher/QC team in Phase 1
+
+4. STONE SETTING STAGE
+──────────────────────
+  Where AI Helps:
+  • Verify correct stone placement
+  • Check alignment, missing stones, wrong stone size, and setting defects
+
+  AI Use Cases:
+  • Image-based inspection
+  • Pattern matching against approved design reference
+  • Missing or misaligned stone detection
+
+  Low-Cost AI Models / Tools:
+  • YOLO object detection, open source
+  • Edge AI models, optional Raspberry Pi deployment
+
+  Recommendation:
+  • Train YOLO using internal product images for stone-setting inspection
+  • Start with critical products such as high-value rings, pendants, and bridal sets
+
+5. FINAL QUALITY CHECK (QC)
+───────────────────────────
+  Where AI Helps:
+  • Automated QC inspection support
+  • Reduce manual checking errors
+  • Improve consistency in pass/fail decisions
+
+  AI Use Cases:
+  • Defect classification
+  • Pass/fail recommendation
+  • Standard compliance checking against design and finish criteria
+
+  Low-Cost AI Models / Tools:
+  • Custom CNN model using PyTorch or TensorFlow
+  • Rule-based QC checks using OpenCV
+  • Google Vertex AI AutoML for limited experiments, if needed
+
+  Recommendation:
+  • Start with rule-based checks + simple ML model instead of full AI automation
+  • Keep final approval with QC team until model accuracy is proven
+
+6. INVENTORY & MATERIAL PLANNING — VERY HIGH ROI
+─────────────────────────────────────────────────
+  Where AI Helps:
+  • Predict stone demand
+  • Optimize gold, silver, copper, and stone usage
+  • Reduce stock-outs and urgent procurement
+
+  AI Use Cases:
+  • Demand forecasting
+  • Reorder alerts
+  • Consumption prediction by product type, sample type, and season
+
+  Low-Cost AI Models / Tools:
+  • Excel + Python ML models such as ARIMA and regression
+  • Prophet forecasting model, free/open source
+  • Power BI with AI visuals
+
+  Recommendation:
+  • Use Prophet + Excel/Power BI for a cost-effective forecasting layer
+  • Start with stone inventory and high-value raw material categories
+
+7. LABOUR PRODUCTIVITY & PLANNING
+─────────────────────────────────
+  Where AI Helps:
+  • Measure worker efficiency
+  • Allocate labour intelligently across NPD stages
+  • Predict time required per stage
+
+  AI Use Cases:
+  • Productivity analytics
+  • Workload balancing
+  • Stage-wise time prediction
+  • Idle time and labour utilization tracking
+
+  Low-Cost AI Models / Tools:
+  • Python regression and clustering models
+  • Power BI AI insights
+  • Existing production tracking database
+
+  Recommendation:
+  • No heavy AI is needed initially
+  • Use data analytics + simple ML for immediate visibility and planning support
+
+8. DASHBOARD — CENTRAL AI INTEGRATION LAYER
+────────────────────────────────────────────
+  Where AI Helps:
+  • Provide real-time operational visibility
+  • Convert raw tracking data into alerts and decisions
+  • Support daily management review
+
+  AI Features:
+  • Delay prediction
+  • Bottleneck detection
+  • Smart notifications for low stock, delayed samples, labour shortage, and QC failure
+
+  Low-Cost Tools:
+  • Power BI as the best low-cost business dashboard option
+  • Streamlit as a free Python-based dashboard option
+  • FastAPI + PostgreSQL backend for live data
+
+  Recommendation:
+  • Start with Power BI + Python backend if management needs polished dashboards
+  • Use Streamlit if the priority is fast, zero-license-cost internal deployment
+
+COST OPTIMIZATION STRATEGY
+──────────────────────────
+  Phase 1 — Low / Zero Cost Immediate Start:
+  • Excel + Power BI dashboard
+  • Stable Diffusion for design generation
+  • OpenCV for QC checks
+  • Basic Python models for forecasting and productivity analysis
+  • Estimated Cost: ₹ 3,50,000 – ₹ 7,00,000 including setup, camera station, and training
+
+  Phase 2 — Moderate Investment:
+  • Train YOLO models for polishing, stone setting, and final QC
+  • Deploy forecasting models for materials and stones
+  • Add automation pipelines and scheduled alerts
+  • Estimated Additional Cost: ₹ 4,00,000 – ₹ 8,00,000
+
+  Phase 3 — Advanced AI, Optional:
+  • IoT + AI cameras at each production stage
+  • Auto design-to-production data pipeline
+  • Edge AI deployment for continuous inspection
+  • Estimated Additional Cost: ₹ 8,00,000 – ₹ 18,00,000 depending on camera/GPU hardware
+
+BEST LOW-COST AI STACK
+──────────────────────
+  Area                    Tool / Model                         Cost
+  ─────────────────────   ──────────────────────────────────   ─────────────
+  Design                  Stable Diffusion                     Free locally
+  QC / Inspection         OpenCV + YOLO                        Free software
+  Forecasting             Prophet                             Free
+  Dashboard               Power BI / Streamlit                 Low / Free
+  ML Models               Python + Scikit-learn                Free
+  3D Concept Support      Blender + AI plugins                 Free / Low
+  Local Deployment        Existing PC / optional GPU machine   Low recurring
+
+FINAL COST-OPTIMIZED RECOMMENDATION
+────────────────────────────────────
+  Start AI in 3 priority areas first:
+  • Design Generation: fastest visible ROI and improves customer proposal speed
+  • QC Automation: reduces rejection, rework, and manual inspection inconsistency
+  • Inventory Forecasting: reduces stock-outs and improves material planning
+
+  Expansion Path:
+  • After 60–90 days of pilot results, expand to polishing inspection, stone-setting
+    inspection, labour planning, and management dashboards.
+  • Use paid APIs only where they clearly improve client-facing output or reduce
+    measurable operational cost.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DEPARTMENT 2 — PRODUCTION PLANNING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CURRENT PAIN POINTS
+───────────────────
+• Production schedules are made manually in Excel — updated inconsistently
+• Rush orders disrupt existing schedules with no systematic re-prioritization
+• Craftsman skills are not tracked — wrong person assigned to specialized tasks
+• Material shortage discovered only at the production stage (not before)
+• No visibility on which stage is the bottleneck
+
+AI AGENTS PROPOSED
+──────────────────
+
+Agent 2.1 — Daily Production Planning Agent
+  What it does:
+  • Every morning, reads all pending + confirmed orders
+  • Creates production jobs, assigns craftsmen based on skill + availability
+  • Builds an optimized daily schedule (Gantt-style)
+  • Flags jobs at risk of missing delivery date
+  • Sends plan summary to floor supervisors via WhatsApp/Email
+
+  Tools Used:
+  • PostgreSQL (orders, craftsmen, workflow templates)
+  • Scheduling algorithm (constraint-based)
+  • Notification tool (WhatsApp Business API / SMTP)
+
+  Inputs  : Orders list, craftsman availability, workflow templates
+  Outputs : Daily production schedule, assignment list, risk alerts
+
+Agent 2.2 — Material Requirement Planning (MRP) Agent
+  What it does:
+  • Before production starts, calculates exact material needed per job
+  • Checks live inventory — raises purchase requests for shortfalls
+  • Tracks issued vs. returned vs. wasted material per job
+  • Generates wastage reports by craftsman and product type
+
+  Tools Used:
+  • Inventory database
+  • BOM data from NPD agent
+  • Supplier contact database
+
+  Inputs  : Confirmed production jobs
+  Outputs : Material issue list, purchase requisitions, wastage dashboard
+
+Agent 2.3 — Bottleneck Detection & Re-scheduling Agent
+  What it does:
+  • Monitors production task completion in real time
+  • Detects delays, craftsman absences, machine breakdowns
+  • Automatically re-schedules impacted jobs
+  • Recommends outsourcing for overflow work
+
+  Tools Used:
+  • Real-time task status polling (PostgreSQL)
+  • GPT-4o for re-scheduling reasoning
+
+  Inputs  : Live task status updates
+  Outputs : Revised schedule, alerts, escalation notifications
+
+Agent 2.4 — Production Reporting Agent
+  What it does:
+  • Generates daily production summary (completed / in-progress / delayed)
+  • Weekly output report: units produced, on-time %, wastage %
+  • Craftsman productivity report
+
+  Tools Used:
+  • Database aggregation queries
+  • PDF/Excel report generation (reportlab / openpyxl)
+
+  Inputs  : Production task data
+  Outputs : Daily/weekly automated reports
+
+REQUIREMENTS — PRODUCTION PLANNING
+────────────────────────────────────
+  Technical:
+  • Production Planning Agent (already scaffolded in codebase)
+  • Real-time database polling (PostgreSQL)
+  • Notification: WhatsApp Business API or SMTP
+  • Mobile-friendly dashboard (React/Streamlit)
+
+  Data:
+  • Craftsman skill matrix (to be created)
+  • Product workflow templates (stage × time estimates)
+  • Historical production time data (for ML estimation)
+  • Current inventory levels
+
+  Integration:
+  • Barcode/QR scan at each production stage (optional — Phase 2)
+  • ERP system (if present)
+
+COST — PRODUCTION PLANNING
+───────────────────────────
+  Development & Setup    : ₹ 4,00,000 – ₹ 6,00,000
+  OpenAI API (monthly)   : ₹ 6,000 – ₹ 10,000/month
+  WhatsApp Business API  : ₹ 1,500 – ₹ 3,000/month
+  Server/Cloud hosting   : ₹ 3,000 – ₹ 5,000/month
+  ─────────────────────────────────────
+  YEAR 1 TOTAL           : ₹ 5,22,000 – ₹ 8,16,000
+
+  Savings:
+  • Eliminates 1 production planner role: ₹ 5,40,000/year
+  • On-time delivery improves 30–40% (fewer penalty/rush costs)
+  • Wastage reduction 15–20%: estimated ₹ 3,00,000 – ₹ 5,00,000/year
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DEPARTMENT 3 — FINANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CURRENT PAIN POINTS
+───────────────────
+• Invoices are typed manually — slow and error-prone
+• Gold rate fluctuates daily but pricing is updated infrequently
+• GST filing preparation takes 2–3 days every month
+• Profitability per order/product is not tracked in real time
+• Payment follow-ups are done manually via phone calls
+
+AI AGENTS PROPOSED
+──────────────────
+
+Agent 3.1 — Dynamic Pricing Agent
+  What it does:
+  • Fetches live gold/silver rates every morning (GoldAPI / MCX feed)
+  • Recalculates product prices across catalogue automatically
+  • Updates price list — marks products where margin has dropped below threshold
+  • Sends pricing update summary to management
+
+  Tools Used:
+  • GoldAPI.io / MCX live feed
+  • Product pricing tables (PostgreSQL)
+  • Email/WhatsApp notification
+
+  Inputs  : Live metal rates, product BOM data
+  Outputs : Updated price list, margin alert report
+
+Agent 3.2 — Invoice Automation Agent
+  What it does:
+  • Auto-generates GST-compliant invoices on order completion
+  • Applies correct HSN codes for jewellery (7113, 7114, 7117)
+  • Calculates: metal value + making charges + stone value + GST (3%)
+  • Stores invoice in PDF + pushes to accounting system (Tally/Zoho)
+
+  Tools Used:
+  • Order + pricing database
+  • ReportLab (PDF generation)
+  • Tally API / Zoho Books API (optional)
+
+  Inputs  : Completed order data
+  Outputs : GST invoice PDF, accounting entry
+
+Agent 3.3 — Profitability Tracker Agent
+  What it does:
+  • Calculates actual profit per order: selling price − (material cost + labor + overhead)
+  • Tracks margin trends by product category, customer type, collection
+  • Flags loss-making orders and identifies root cause (material spike, excess labor)
+  • Monthly P&L summary per product line
+
+  Tools Used:
+  • Cost + sales database
+  • GPT-4o for root-cause narrative
+
+  Inputs  : Order costs, labor hours, material usage
+  Outputs : Per-order P&L, monthly summary report
+
+Agent 3.4 — Payment Follow-up Agent
+  What it does:
+  • Monitors outstanding receivables (advance paid vs. balance due)
+  • Sends automated payment reminders at D+7, D+15, D+30 via WhatsApp/SMS
+  • Escalates overdue accounts to accounts manager
+  • Tracks payment receipt and closes dues automatically
+
+  Tools Used:
+  • Customer + order database
+  • WhatsApp Business API / Twilio SMS
+  • APScheduler (cron triggers)
+
+  Inputs  : Order payment status
+  Outputs : Automated reminders, overdue report
+
+Agent 3.5 — GST Filing Preparation Agent
+  What it does:
+  • Aggregates all sales invoices, purchase bills, and input tax credit for the month
+  • Prepares GSTR-1 and GSTR-3B summary in Excel format
+  • Flags mismatches between purchase GST and sales GST
+  • Exports data in format compatible with ClearTax / GST portal
+
+  Tools Used:
+  • Invoice + purchase database
+  • openpyxl (Excel generation)
+  • ClearTax API (optional)
+
+  Inputs  : Monthly transaction data
+  Outputs : GSTR-1 / GSTR-3B Excel file, reconciliation report
+
+REQUIREMENTS — FINANCE
+───────────────────────
+  Technical:
+  • GoldAPI.io API key (₹2,000/month)
+  • Tally Prime (existing) — Prime connector for API integration
+  • WhatsApp Business API (Meta) or Twilio
+  • PDF generation: ReportLab
+
+  Data:
+  • Complete order + pricing data in PostgreSQL
+  • Supplier invoice data (for ITC claims)
+  • Customer master with GSTIN numbers
+  • HSN code mapping per product category
+
+  Compliance:
+  • GST registration details
+  • Hallmark/BIS certification numbers for invoice
+
+COST — FINANCE DEPARTMENT
+──────────────────────────
+  Development & Setup    : ₹ 3,00,000 – ₹ 4,50,000
+  GoldAPI (monthly)      : ₹ 1,500 – ₹ 2,500/month
+  OpenAI API (monthly)   : ₹ 4,000 – ₹ 8,000/month
+  WhatsApp/SMS API       : ₹ 1,500 – ₹ 3,000/month
+  Tally Integration      : ₹ 50,000 – ₹ 1,00,000 (one-time)
+  ─────────────────────────────────────
+  YEAR 1 TOTAL           : ₹ 4,34,000 – ₹ 7,02,000
+
+  Savings:
+  • 60–70% reduction in manual accounting time: ₹ 3,60,000/year
+  • GST filing time from 3 days → 2 hours
+  • Bad debts reduced 20–30% via automated follow-up: ₹ 2,00,000+/year
+  • Pricing errors eliminated: ₹ 1,00,000+ /year
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DEPARTMENT 4 — HUMAN RESOURCES (HR)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CURRENT PAIN POINTS
+───────────────────
+• Attendance is tracked manually or via basic biometric — no analysis done
+• Hiring skilled craftsmen (goldsmiths, stone setters) is time-consuming
+• Training is unstructured — no tracking of skill progression
+• Salary processing takes 3–4 days each month
+• Labour law compliance (PF, ESIC, Gratuity) managed in spreadsheets
+
+AI AGENTS PROPOSED
+──────────────────
+
+Agent 4.1 — Attendance & Shift Management Agent
+  What it does:
+  • Integrates with biometric device to pull daily attendance
+  • Detects anomalies: late arrivals, early exits, absenteeism patterns
+  • Auto-generates shift schedule based on production demand
+  • Alerts supervisor when critical craftsmen are absent (e.g., sole stone setter)
+
+  Tools Used:
+  • Biometric device API (ZKTeco / eSSL integration)
+  • PostgreSQL (craftsmen + shift tables)
+  • WhatsApp notification
+
+  Inputs  : Biometric attendance data, production schedule
+  Outputs : Attendance report, shift schedule, absence alerts
+
+Agent 4.2 — Recruitment Agent
+  What it does:
+  • Posts job openings on Naukri, LinkedIn, local portals automatically
+  • Screens resumes using AI — scores candidates on skill match (goldsmith,
+    CAD designer, stone setter, QC inspector)
+  • Schedules interviews automatically via email/WhatsApp
+  • Maintains candidate pipeline with status tracking
+
+  Tools Used:
+  • Naukri / LinkedIn API (or scraping)
+  • GPT-4o for resume parsing + scoring
+  • Google Calendar API for scheduling
+  • Email/WhatsApp for communication
+
+  Inputs  : Job description, required skill set
+  Outputs : Ranked candidate list, interview schedule, offer letter draft
+
+Agent 4.3 — Skill Matrix & Training Agent
+  What it does:
+  • Maintains a live skill matrix for every craftsman
+    (casting / stone setting / polishing / CAD / QC etc.)
+  • Identifies skill gaps based on production requirements vs. current workforce
+  • Recommends training programs and tracks completion
+  • Issues digital skill certificates on assessment completion
+
+  Tools Used:
+  • Craftsman database
+  • LMS integration (or lightweight internal quiz system)
+  • GPT-4o for training content generation
+
+  Inputs  : Craftsman profiles, production demand data
+  Outputs : Skill gap report, training plan, progress tracker
+
+Agent 4.4 — Payroll Processing Agent
+  What it does:
+  • Calculates monthly salary: base + attendance + overtime + incentives
+  • Deducts: PF (12%), ESIC (0.75%), professional tax, advances
+  • Generates pay slips automatically (PDF, WhatsApp delivery)
+  • Prepares PF/ESIC challan data for statutory filing
+  • Handles incentive calculations for craftsmen (units produced × rate)
+
+  Tools Used:
+  • Attendance + craftsman database
+  • ReportLab (pay slip PDF)
+  • Statutory rules engine (Python)
+
+  Inputs  : Attendance data, salary structure, production incentive data
+  Outputs : Pay slips, salary register, PF/ESIC challans
+
+REQUIREMENTS — HR DEPARTMENT
+──────────────────────────────
+  Technical:
+  • Biometric device with API support (ZKTeco recommended)
+  • PostgreSQL (craftsmen, attendance, payroll tables)
+  • Email + WhatsApp for communication
+  • Optional: LMS for training (Moodle / custom)
+
+  Data:
+  • Employee master (all craftsmen + staff)
+  • Salary structures
+  • Historical attendance
+  • PF/ESIC registration numbers
+
+  Compliance:
+  • Shops & Establishment Act
+  • PF (EPF Act 1952), ESIC, Gratuity Act
+  • Minimum wage compliance (state-specific)
+
+COST — HR DEPARTMENT
+─────────────────────
+  Development & Setup    : ₹ 2,50,000 – ₹ 3,50,000
+  Biometric Integration  : ₹ 25,000 – ₹ 50,000 (one-time)
+  OpenAI API (monthly)   : ₹ 3,000 – ₹ 6,000/month
+  WhatsApp API           : ₹ 1,000 – ₹ 2,000/month
+  ─────────────────────────────────────
+  YEAR 1 TOTAL           : ₹ 3,23,000 – ₹ 5,00,000
+
+  Savings:
+  • HR executive time savings: 50–60%: ₹ 2,40,000/year
+  • Payroll errors eliminated
+  • Recruitment cost savings (agency fees avoided): ₹ 1,50,000+/year
+  • Compliance penalties avoided: ₹ 50,000+/year
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DEPARTMENT 5 — DESIGNING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CURRENT PAIN POINTS
+───────────────────
+• Designers spend hours on initial concept sketches for ideas that may be rejected
+• Client customization requests are hard to visualize quickly
+• CAD work (Rhino/Matrix) is time-intensive for standard designs
+• No centralized design library — designs are scattered across desktops
+• Competitor design monitoring is manual
+
+AI AGENTS PROPOSED
+──────────────────
+
+Agent 5.1 — AI Design Concept Generator
+  What it does:
+  • Takes a text prompt or rough sketch and generates multiple jewellery design
+    concept images using AI image generation (DALL-E 3 / Stable Diffusion)
+  • Filters concepts by: metal type, style, occasion, customer segment
+  • Presents top 5 concepts for designer review and client approval
+  • Saves approved concepts to centralized design library
+
+  Tools Used:
+  • DALL-E 3 API (OpenAI) or Stable Diffusion (self-hosted)
+  • Image storage (AWS S3 / local NAS)
+  • PostgreSQL (design asset table)
+
+  Inputs  : Design brief (text), style tags, metal/stone preferences
+  Outputs : 5–10 design concept images, prompt record, approval workflow
+
+Agent 5.2 — Client Customization Visualizer Agent
+  What it does:
+  • When a customer requests customization (engraving, stone change, size change),
+    agent generates a realistic preview image of the customized piece
+  • Calculates updated price for the customization instantly
+  • Sends preview + quote to customer via WhatsApp within 5 minutes
+  • No designer intervention needed for standard customizations
+
+  Tools Used:
+  • DALL-E 3 / Stable Diffusion with ControlNet (for design consistency)
+  • Pricing calculator tool
+  • WhatsApp Business API
+
+  Inputs  : Base product image, customization request
+  Outputs : Customized preview image, updated price quote, WhatsApp message
+
+Agent 5.3 — Design Trend Intelligence Agent
+  What it does:
+  • Scrapes Pinterest boards, Instagram hashtags, bridal fashion sites weekly
+  • Identifies top trending design patterns: filigree, enamel, kundan, polki,
+    minimalist, antique, lab-grown diamond styles etc.
+  • Maps trends to the factory's current catalogue — identifies gaps
+  • Generates a "Design Brief Pack" for the design team every fortnight
+
+  Tools Used:
+  • Web scraping + Pinterest API / Instagram Graph API
+  • GPT-4o for pattern analysis
+  • Image similarity matching (CLIP model)
+
+  Inputs  : Trend source URLs, existing design catalogue
+  Outputs : Fortnightly trend brief, design gap analysis, inspiration board
+
+Agent 5.4 — Design Library Management Agent
+  What it does:
+  • Organizes all designs (sketches, CAD files, renders, final photos) in a
+    searchable, tagged library
+  • Auto-tags designs by: metal, stone, style, occasion, collection, year
+  • Detects similar/duplicate designs
+  • Tracks design revision history and approvals
+  • Exports design specs to BOM automatically
+
+  Tools Used:
+  • CLIP image embeddings (similarity search)
+  • PostgreSQL + S3 / local file storage
+  • FastAPI search endpoint
+
+  Inputs  : Design files (JPG, PNG, STL, 3DM)
+  Outputs : Tagged searchable library, duplicate alerts, BOM export
+
+Agent 5.5 — CAD Briefing Agent (CAD-Assist)
+  What it does:
+  • Converts approved concept image + design spec into a structured CAD brief
+    for the CAD operator (Rhino 3D / JewelCAD / Matrix)
+  • Specifies: dimensions, wall thickness, prong count, stone seat diameter,
+    shank profile, surface texture
+  • Reduces briefing errors and rework between designer and CAD operator
+  • Estimates CAD time required
+
+  Tools Used:
+  • GPT-4o Vision (image analysis)
+  • CAD brief template (structured JSON → PDF)
+
+  Inputs  : Approved concept image, design spec
+  Outputs : Detailed CAD brief PDF, time estimate
+
+REQUIREMENTS — DESIGNING DEPARTMENT
+─────────────────────────────────────
+  Technical:
+  • DALL-E 3 API (OpenAI) or GPU server for Stable Diffusion
+  • Image storage: AWS S3 or local NAS (min 2TB)
+  • CLIP model for image similarity (open source)
+  • WhatsApp Business API
+  • FastAPI for design library search
+
+  Data:
+  • Existing design catalogue (images, CAD files)
+  • Customer customization request history
+  • Product-design mapping
+
+  Hardware (if self-hosted Stable Diffusion):
+  • NVIDIA GPU (RTX 4090 or A100): ₹ 1,50,000 – ₹ 3,50,000 (one-time)
+  • Alternative: Use cloud GPU (RunPod / Lambda): ₹ 8,000 – ₹ 20,000/month
+
+COST — DESIGNING DEPARTMENT
+─────────────────────────────
+  Development & Setup        : ₹ 4,50,000 – ₹ 7,00,000
+  DALL-E 3 API (monthly)     : ₹ 10,000 – ₹ 25,000/month (heavy image gen)
+  OpenAI API - Vision/GPT-4o : ₹ 5,000 – ₹ 10,000/month
+  Storage (AWS S3 / NAS)     : ₹ 2,000 – ₹ 5,000/month
+  WhatsApp API               : ₹ 1,500 – ₹ 3,000/month
+  ─────────────────────────────────────
+  YEAR 1 TOTAL               : ₹ 6,72,000 – ₹ 11,56,000
+
+  Savings:
+  • Designer time on initial concepts: 60–70% reduction
+  • Client approval cycle: 2 days → 30 minutes (customization previews)
+  • Reduced design rework: ₹ 2,00,000+/year
+  • CAD briefing errors reduced 80%: ₹ 1,50,000+/year saved in rework
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONSOLIDATED COST SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─────────────────────────────────────┬──────────────────┬──────────────────┐
+│ Department                          │ Min (Year 1, ₹)  │ Max (Year 1, ₹)  │
+├─────────────────────────────────────┼──────────────────┼──────────────────┤
+│ 1. New Product Development          │   6,55,000       │  10,61,000       │
+│ 2. Production Planning              │   5,22,000       │   8,16,000       │
+│ 3. Finance                          │   4,34,000       │   7,02,000       │
+│ 4. Human Resources                  │   3,23,000       │   5,00,000       │
+│ 5. Designing                        │   6,72,000       │  11,56,000       │
+├─────────────────────────────────────┼──────────────────┼──────────────────┤
+│ Infrastructure (shared DB, servers) │   1,00,000       │   2,00,000       │
+│ Project Management & Training       │   1,50,000       │   2,00,000       │
+│ Security & Data Backup              │     50,000       │   1,00,000       │
+├─────────────────────────────────────┼──────────────────┼──────────────────┤
+│ GRAND TOTAL — YEAR 1                │  29,06,000       │  47,35,000       │
+└─────────────────────────────────────┴──────────────────┴──────────────────┘
+
+RECURRING ANNUAL COST (Year 2+)
+  API Costs (OpenAI + others)  : ₹ 4,44,000 – ₹ 8,88,000/year
+  Server/Cloud hosting         : ₹ 36,000 – ₹ 72,000/year
+  Maintenance & updates        : ₹ 1,20,000 – ₹ 2,00,000/year
+  ─────────────────────────────────────────────────────
+  TOTAL RECURRING YEAR 2+      : ₹ 6,00,000 – ₹ 11,60,000/year
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROJECTED SAVINGS SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─────────────────────────────────────┬──────────────────┬──────────────────┐
+│ Saving Category                     │ Min (₹/year)     │ Max (₹/year)     │
+├─────────────────────────────────────┼──────────────────┼──────────────────┤
+│ Staff time savings (across depts)   │  14,00,000       │  20,00,000       │
+│ Material wastage reduction          │   3,00,000       │   6,00,000       │
+│ Design rework reduction             │   3,50,000       │   5,00,000       │
+│ Sample delay/rework reduction       │   1,50,000       │   3,00,000       │
+│ Bad debts / payment recovery        │   2,00,000       │   3,50,000       │
+│ GST/compliance penalties avoided    │     50,000       │   1,50,000       │
+│ Recruitment agency fees saved       │   1,50,000       │   2,50,000       │
+│ Faster client approvals (revenue)   │   5,00,000       │  10,00,000       │
+│ Reduced NPD-to-launch cycle         │   3,00,000       │   5,00,000       │
+├─────────────────────────────────────┼──────────────────┼──────────────────┤
+│ TOTAL ANNUAL SAVINGS                │  34,00,000       │  56,50,000       │
+└─────────────────────────────────────┴──────────────────┴──────────────────┘
+
+ROI CALCULATION
+  Year 1 Investment          : ₹ 29,00,000 – ₹ 47,00,000
+  Year 1 Savings             : ₹ 34,00,000 – ₹ 56,50,000
+  Net Year 1 Benefit         : ₹ +5,00,000 to +9,50,000
+  Year 2+ Net Annual Benefit : ₹ 28,00,000 – ₹ 45,00,000
+  Payback Period             : 8 – 14 months
+  3-Year Cumulative ROI      : 190% – 280%
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IMPLEMENTATION ROADMAP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PHASE 1 — Foundation (Month 1–2)  [₹ 6,00,000 – ₹ 9,00,000]
+  ✅ Database schema + PostgreSQL setup (DONE)
+  ✅ Product Agent — catalogue + pricing
+  ✅ Production Planning Agent — scheduling + bottleneck
+  → NPD: Sample Development Workflow Agent
+  → Finance: Dynamic Pricing + Invoice Automation
+  → HR: Payroll + Attendance agents
+
+PHASE 2 — Intelligence (Month 3–4)  [₹ 9,00,000 – ₹ 14,00,000]
+  → Designing: AI Design Concept Generator
+  → Designing: Client Customization Visualizer
+  → NPD: Trend Research + BOM Automation + Resource/KPI Dashboard
+  → Finance: Profitability Tracker + Payment Follow-up
+
+PHASE 3 — Optimization (Month 5–6)  [₹ 8,00,000 – ₹ 12,00,000]
+  → HR: Recruitment + Skill Matrix agents
+  → NPD: Post-Launch Performance agent
+  → Designing: Design Library + CAD Briefing agents
+  → Finance: GST Filing Preparation agent
+
+PHASE 4 — Advanced (Month 7+)  [₹ 4,00,000 – ₹ 9,00,000]
+  → Barcode/QR tracking at production stages
+  → Customer portal (order tracking + customization)
+  → Demand forecasting agent
+  → Supplier negotiation agent
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TECH STACK SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Layer               Technology
+  ─────────────────   ──────────────────────────────────────────────
+  AI Agent Framework  CrewAI 0.30+
+  LLM (Reasoning)     OpenAI GPT-4o
+  Image Generation    Stable Diffusion (local) / DALL-E 3 for premium use
+  Image Similarity    OpenAI CLIP (open source)
+  Computer Vision     OpenCV + YOLOv5/v8
+  Forecasting         Prophet + Scikit-learn
+  Backend API         Python FastAPI
+  Database            PostgreSQL 16 + SQLAlchemy ORM
+  Task Scheduling     APScheduler / Celery + Redis
+  Notifications       WhatsApp Business API / Twilio SMS / SMTP
+  PDF Generation      ReportLab + openpyxl
+  File Storage        AWS S3 / Local NAS
+  Frontend Dashboard  Power BI / Streamlit / React + Tailwind CSS (Phase 2)
+  Accounting          Tally Prime API / Zoho Books
+  Metal Prices        GoldAPI.io / MCX data feed
+  Deployment          Docker + Nginx (on-premises or AWS EC2)
+  ─────────────────   ──────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RISKS & MITIGATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Risk                              Mitigation
+  ───────────────────────────────   ─────────────────────────────────────────
+  Staff resistance to AI tools      Training sessions + pilot with 1 dept first
+  Data quality issues               Data cleanup sprint before AI deployment
+  OpenAI API cost overrun           Token budgets + local LLM fallback (Ollama)
+  Internet downtime (API calls)     Offline fallback with cached metal rates
+  Data security (customer/finance)  On-premises PostgreSQL, encrypted storage
+  AI hallucination in pricing       Human approval step for prices > threshold
+  Image gen quality for designs     Designer review mandatory before client send
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TOTAL AI AGENTS COUNT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Department                    # Agents
+  ─────────────────────────     ────────
+  New Product Development           6
+  Production Planning               4
+  Finance                           5
+  Human Resources                   4
+  Designing                         5
+  ─────────────────────────     ────────
+  TOTAL                            24 AI Agents
+
+  Each agent is autonomous, has defined tools, inputs, and outputs.
+  Agents can collaborate via CrewAI multi-agent crews for cross-department tasks.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+END OF PROPOSAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Prepared by  : AI Systems Team
+Version      : 1.0
+Date         : May 2026
+Contact      : [Your Name / Email]
